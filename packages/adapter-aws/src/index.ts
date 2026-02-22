@@ -1,18 +1,54 @@
 /**
  * @byb/adapter-aws — AWS adapter implementations for BYB.
  *
- * This package will contain AWS-specific adapters that implement
- * the interfaces from @byb/core. Each adapter wraps an AWS SDK client
- * (DynamoDB, S3, SES, etc.) behind the generic adapter interface.
+ * This package provides AWS-specific adapters that implement the interfaces
+ * from @byb/core. Each adapter wraps an AWS SDK v3 client behind the
+ * generic adapter interface.
  *
- * Status: Placeholder — implementations coming in Phase 2.
+ * Use `registerAllAwsAdapters()` to register all AWS adapters in your
+ * adapter registries in one call.
+ *
+ * Usage:
+ *   import { registerAllAwsAdapters } from '@byb/adapter-aws';
+ *   const registries = registerAllAwsAdapters({ region: 'us-east-1', ... });
  */
 
-// Adapter implementations will be exported here as they're built:
-// export { createDynamoDbAdapter } from './dynamoDbAdapter.js';
-// export { createS3StorageAdapter } from './s3StorageAdapter.js';
-// export { createCloudfrontCdnAdapter } from './cloudfrontCdnAdapter.js';
-// export { createSesEmailAdapter } from './sesEmailAdapter.js';
-// export { createSsmSecretsAdapter } from './ssmSecretsAdapter.js';
-// export { createEventBridgeSchedulerAdapter } from './eventBridgeSchedulerAdapter.js';
-// export { createCdkInfraAdapter } from './cdkInfraAdapter.js';
+export {
+  createDynamoDbAdapter,
+  type DynamoDbAdapterOptions,
+} from './dynamoDbAdapter.js';
+
+export {
+  createS3StorageAdapter,
+  type S3StorageAdapterOptions,
+} from './s3StorageAdapter.js';
+
+export {
+  createSesEmailAdapter,
+  type SesEmailAdapterOptions,
+} from './sesEmailAdapter.js';
+
+export {
+  createSsmSecretsAdapter,
+  type SsmSecretsAdapterOptions,
+} from './ssmSecretsAdapter.js';
+
+export {
+  createEventBridgeSchedulerAdapter,
+  type EventBridgeSchedulerAdapterOptions,
+} from './eventBridgeSchedulerAdapter.js';
+
+export {
+  createCloudfrontCdnAdapter,
+  type CloudfrontCdnAdapterOptions,
+} from './cloudfrontCdnAdapter.js';
+
+export {
+  createCdkInfraAdapter,
+  type CdkInfraAdapterOptions,
+} from './cdkInfraAdapter.js';
+
+export {
+  registerAllAwsAdapters,
+  type AwsRegistrationOptions,
+} from './registerAwsAdapters.js';

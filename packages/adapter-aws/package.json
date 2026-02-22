@@ -9,6 +9,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@aws-sdk/client-cloudformation": "^3.995.0",
+    "@aws-sdk/client-cloudfront": "^3.995.0",
+    "@aws-sdk/client-dynamodb": "^3.995.0",
+    "@aws-sdk/client-s3": "^3.995.0",
+    "@aws-sdk/client-scheduler": "^3.995.0",
+    "@aws-sdk/client-ses": "^3.995.0",
+    "@aws-sdk/client-ssm": "^3.995.0",
+    "@aws-sdk/lib-dynamodb": "^3.995.0",
+    "@aws-sdk/s3-request-presigner": "^3.995.0",
     "@byb/core": "*"
   },
   "devDependencies": {
