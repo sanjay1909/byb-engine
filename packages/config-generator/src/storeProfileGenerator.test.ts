@@ -81,6 +81,8 @@ describe('generateStoreProfile', () => {
         secrets: 'ssm',
         scheduler: 'eventbridge',
         infra: 'aws-cdk',
+        dns: 'route53',
+        pipeline: 'codepipeline',
       });
     });
   });

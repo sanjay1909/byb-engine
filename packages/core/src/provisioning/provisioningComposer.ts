@@ -157,12 +157,20 @@ const PROVISIONING_TEMPLATE: Array<
     dependsOn: ['deploy-backend'],
   },
   {
-    stageId: 'configure-domain',
-    displayName: 'Configure Custom Domain',
-    adapterDomain: 'cdn',
+    stageId: 'configure-dns',
+    displayName: 'Configure DNS & SSL',
+    adapterDomain: 'dns',
     operation: 'configureDomain',
     required: false,
     dependsOn: ['setup-cdn'],
+  },
+  {
+    stageId: 'setup-pipeline',
+    displayName: 'Set Up CI/CD Pipeline',
+    adapterDomain: 'pipeline',
+    operation: 'createPipeline',
+    required: false,
+    dependsOn: ['deploy-frontend'],
   },
 ];
 

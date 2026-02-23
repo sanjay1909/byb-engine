@@ -162,4 +162,48 @@ describe('composeProvisioningPlan', () => {
     expect(skippedIds).toContain('setup-email');
     expect(skippedIds).toContain('setup-scheduler');
   });
+
+  it('includes configure-dns stage', () => {
+    const plan = composeProvisioningPlan(fullProfile);
+
+    const dnsStage = plan.stages.find((s) => s.stageId === 'configure-dns');
+    expect(dnsStage).toBeDefined();
+    expect(dnsStage?.adapterDomain).toBe('dns');
+    expect(dnsStage?.dependsOn).toContain('setup-cdn');
+  });
+
+  it('includes setup-pipeline stage', () => {
+    const plan = composeProvisioningPlan(fullProfile);
+
+    const pipelineStage = plan.stages.find(
+      (s) => s.stageId === 'setup-pipeline',
+    );
+    expect(pipelineStage).toBeDefined();
+    expect(pipelineStage?.adapterDomain).toBe('pipeline');
+    expect(pipelineStage?.dependsOn).toContain('deploy-frontend');
+  });
+
+  it('dns and pipeline stages are planned for full profile', () => {
+    const plan = composeProvisioningPlan(fullProfile);
+
+    const dnsStage = plan.stages.find((s) => s.stageId === 'configure-dns');
+    const pipelineStage = plan.stages.find(
+      (s) => s.stageId === 'setup-pipeline',
+    );
+
+    expect(dnsStage?.status).toBe('planned');
+    expect(pipelineStage?.status).toBe('planned');
+  });
+
+  it('dns and pipeline stages are not required', () => {
+    const plan = composeProvisioningPlan(fullProfile);
+
+    const dnsStage = plan.stages.find((s) => s.stageId === 'configure-dns');
+    const pipelineStage = plan.stages.find(
+      (s) => s.stageId === 'setup-pipeline',
+    );
+
+    expect(dnsStage?.required).toBe(false);
+    expect(pipelineStage?.required).toBe(false);
+  });
 });

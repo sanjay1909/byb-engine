@@ -41,6 +41,8 @@ const CLOUD_ADAPTER_MAP: Record<string, StoreAdapterSelections> = {
     secrets: 'ssm',
     scheduler: 'eventbridge',
     infra: 'aws-cdk',
+    dns: 'route53',
+    pipeline: 'codepipeline',
   },
   azure: {
     db: 'cosmos-db',
@@ -50,6 +52,8 @@ const CLOUD_ADAPTER_MAP: Record<string, StoreAdapterSelections> = {
     secrets: 'key-vault',
     scheduler: 'azure-scheduler',
     infra: 'azure-arm',
+    dns: 'azure-dns',
+    pipeline: 'azure-devops',
   },
   gcp: {
     db: 'firestore',
@@ -59,6 +63,8 @@ const CLOUD_ADAPTER_MAP: Record<string, StoreAdapterSelections> = {
     secrets: 'secret-manager',
     scheduler: 'cloud-scheduler',
     infra: 'gcp-terraform',
+    dns: 'cloud-dns',
+    pipeline: 'cloud-build',
   },
 };
 

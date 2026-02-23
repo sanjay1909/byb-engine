@@ -32,6 +32,10 @@ export interface StoreAdapterSelections {
   secrets: string;
   scheduler: string;
   infra: string;
+  /** DNS adapter ID (optional — omit if DNS automation is not needed) */
+  dns?: string;
+  /** CI/CD pipeline adapter ID (optional — omit if pipeline automation is not needed) */
+  pipeline?: string;
 }
 
 /**

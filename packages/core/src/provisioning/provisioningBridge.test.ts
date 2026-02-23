@@ -23,13 +23,14 @@ function createMockAdapter() {
     createTable: vi.fn().mockResolvedValue({ tableArn: 'arn:aws:dynamodb:table/test' }),
     createBucket: vi.fn().mockResolvedValue({ bucketName: 'test-bucket' }),
     createDistribution: vi.fn().mockResolvedValue({ distributionId: 'dist-123' }),
-    configureDomain: vi.fn().mockResolvedValue(undefined),
+    configureDomain: vi.fn().mockResolvedValue({ zoneId: 'zone-1', recordName: 'shop.example.com', status: 'pending' }),
     setupStoreSecrets: vi.fn().mockResolvedValue(undefined),
     configureEmailSender: vi.fn().mockResolvedValue(undefined),
     configureScheduler: vi.fn().mockResolvedValue(undefined),
     deployCompute: vi.fn().mockResolvedValue({ functionArn: 'arn:aws:lambda:fn' }),
     deployFrontend: vi.fn().mockResolvedValue({ url: 'https://test.com' }),
     seedData: vi.fn().mockResolvedValue({ productsSeeded: 5 }),
+    createPipeline: vi.fn().mockResolvedValue({ pipelineId: 'pipe-1', status: 'created' }),
     // Required for contract validation
     get: vi.fn(),
     put: vi.fn(),
@@ -52,6 +53,13 @@ function createMockAdapter() {
     provision: vi.fn(),
     getStatus: vi.fn(),
     destroy: vi.fn(),
+    // DNS adapter methods
+    checkPropagation: vi.fn(),
+    provisionSsl: vi.fn(),
+    // Pipeline adapter methods
+    triggerBuild: vi.fn(),
+    getBuildStatus: vi.fn(),
+    getDeploymentUrl: vi.fn(),
   };
 }
 
@@ -66,6 +74,8 @@ const testProfile: StoreProfile = {
     secrets: 'mock-secrets',
     scheduler: 'mock-scheduler',
     infra: 'mock-infra',
+    dns: 'mock-dns',
+    pipeline: 'mock-pipeline',
   },
   features: {
     blog: true,
@@ -81,7 +91,7 @@ function createMockRegistries() {
   const mockAdapter = createMockAdapter();
   const registries = new Map<string, ReturnType<typeof createAdapterRegistry>>();
 
-  const domains = ['db', 'storage', 'cdn', 'email', 'secrets', 'scheduler', 'infra'];
+  const domains = ['db', 'storage', 'cdn', 'email', 'secrets', 'scheduler', 'infra', 'dns', 'pipeline'];
   for (const domain of domains) {
     // Use empty requiredMethods to skip contract validation in tests
     const registry = createAdapterRegistry({ domain, requiredMethods: [] });

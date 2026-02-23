@@ -67,3 +67,28 @@ export type {
   InfraDestroyParams,
 } from './infraAdapter.js';
 export { INFRA_ADAPTER_REQUIRED_METHODS } from './infraAdapter.js';
+
+export type {
+  DnsAdapter,
+  DnsConfigureParams,
+  DnsConfigureResult,
+  DnsCheckParams,
+  DnsPropagationStatus,
+  DnsSslParams,
+  DnsSslResult,
+  DnsStatusParams,
+  DnsStatus,
+} from './dnsAdapter.js';
+export { DNS_ADAPTER_REQUIRED_METHODS } from './dnsAdapter.js';
+
+export type {
+  PipelineAdapter,
+  PipelineCreateParams,
+  PipelineCreateResult,
+  PipelineTriggerParams,
+  PipelineBuildResult,
+  PipelineBuildStatusParams,
+  PipelineBuildStatus,
+  PipelineDeploymentParams,
+} from './pipelineAdapter.js';
+export { PIPELINE_ADAPTER_REQUIRED_METHODS } from './pipelineAdapter.js';
