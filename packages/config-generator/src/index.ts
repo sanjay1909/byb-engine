@@ -68,4 +68,4 @@ export {
 } from './storeProfileGenerator.js';
 
 // Convenience: generate all configs at once
-export { generateAllConfigs } from './generateAllConfigs.js';
+export { generateAllConfigs, type GeneratedConfigs } from './generateAllConfigs.js';

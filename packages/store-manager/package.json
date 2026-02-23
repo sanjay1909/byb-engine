@@ -10,8 +10,7 @@
   },
   "dependencies": {
     "@byb/core": "*",
-    "@byb/config-generator": "*",
-    "@byb/wizard": "*"
+    "@byb/config-generator": "*"
   },
   "devDependencies": {
     "typescript": "^5.7.0",

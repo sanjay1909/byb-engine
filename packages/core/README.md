@@ -29,3 +29,49 @@ Store Profile → resolves → Adapter Selections + Feature Flags
 ```
 
 This is ported from the SIS platform's orchestration architecture, adapted for ecommerce provisioning.
+
+## Adapter Interfaces
+
+7 interfaces defined in `adapters/interfaces/`:
+
+| Interface | Domain | Key Methods |
+|-----------|--------|-------------|
+| `DbAdapter` | Database | `putItem`, `getItem`, `queryItems`, `deleteItem`, `updateItem`, `batchWrite`, `transactWrite` |
+| `StorageAdapter` | Object Storage | `upload`, `download`, `delete`, `list`, `getPresignedUploadUrl`, `getPresignedDownloadUrl` |
+| `CdnAdapter` | CDN | `invalidateCache`, `getDomainName`, `getDistributionId` |
+| `EmailAdapter` | Email | `sendEmail`, `sendTemplatedEmail` |
+| `SecretsAdapter` | Secrets | `getSecret`, `putSecret`, `deleteSecret` |
+| `SchedulerAdapter` | Scheduling | `createSchedule`, `deleteSchedule`, `listSchedules` |
+| `InfraAdapter` | IaC | `provisionStack`, `getStackStatus`, `destroyStack`, `listStacks` |
+
+## Usage
+
+```typescript
+import {
+  createAdapterRegistry,
+  assertAdapterContract,
+  createStoreProfileResolver,
+  createFeatureCapabilityRegistry,
+  composeProvisioningPlan,
+  createProvisioningBridge,
+} from '@byb/core';
+
+// Register adapters
+const dbRegistry = createAdapterRegistry<DbAdapter>('db');
+dbRegistry.registerAdapter('dynamodb', myDynamoAdapter);
+
+// Resolve profiles
+const resolver = createStoreProfileResolver();
+resolver.registerProfile(myProfile);
+const resolved = resolver.resolve({ storeId: 'my-shop' });
+
+// Compose & execute provisioning
+const plan = composeProvisioningPlan(resolved.profile);
+const bridge = createProvisioningBridge({ adapters: registries });
+const result = await bridge.executePlan(plan);
+```
+
+## Tests
+```bash
+npx vitest run packages/core/
+```
